@@ -149,7 +149,7 @@ const Reservation = () => {
                             <div>
                               <h3 className="font-medium text-foreground">{v.name}</h3>
                               <p className="text-sm text-muted-foreground">{v.category}</p>
-                              <p className="text-brand font-medium mt-1">{v.price}/jour</p>
+                              <p className="text-charcoal font-semibold mt-1">{v.price}/jour</p>
                             </div>
                           </div>
                         </button>
@@ -235,7 +235,7 @@ const Reservation = () => {
                         </p>
                       </div>
                       <div className="text-right">
-                        <p className="text-brand font-medium">+50 000 FCFA</p>
+                        <p className="text-charcoal font-semibold">+50 000 FCFA</p>
                         <p className="text-xs text-muted-foreground">par jour</p>
                       </div>
                     </button>
@@ -360,7 +360,7 @@ const Reservation = () => {
                     <p className="text-sm text-muted-foreground text-center">
                       Pour confirmer votre réservation, un acompte de 30% sera demandé.
                       <br />
-                      Contactez-nous au <span className="text-brand">+221 77 000 00 00</span> pour finaliser.
+                      Contactez-nous au <span className="text-charcoal font-bold">+221 77 000 00 00</span> pour finaliser.
                     </p>
                   </div>
 
@@ -389,7 +389,7 @@ const Reservation = () => {
                   </p>
                   <div className="p-4 rounded-lg bg-background border border-border mb-8 max-w-sm mx-auto">
                     <p className="text-sm text-muted-foreground">Numéro de réservation</p>
-                    <p className="text-2xl font-mono font-bold text-gradient-brand">
+                    <p className="text-2xl font-mono font-bold text-charcoal">
                       BK-{Date.now().toString().slice(-8)}
                     </p>
                   </div>
@@ -462,7 +462,7 @@ const Reservation = () => {
 
                   <div className="flex justify-between pt-4">
                     <span className="font-medium text-foreground">Total</span>
-                    <span className="text-2xl font-serif font-bold text-gradient-brand">
+                    <span className="text-2xl font-serif font-bold text-charcoal">
                       {totalPrice.toLocaleString()} FCFA
                     </span>
                   </div>

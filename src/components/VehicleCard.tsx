@@ -69,7 +69,7 @@ const VehicleCard = ({
         {/* Price & CTA */}
         <div className="flex items-center justify-between pt-4 border-t border-border">
           <div>
-            <span className="text-2xl font-serif font-bold text-gradient-brand">{price}</span>
+            <span className="text-2xl font-serif font-bold text-charcoal">{price}</span>
             <span className="text-sm text-muted-foreground ml-1">
               {priceType === "location" ? "/ jour" : ""}
             </span>

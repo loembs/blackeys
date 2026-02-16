@@ -86,7 +86,7 @@ const VehicleDetail = () => {
 
               {/* Price */}
               <div className="mb-6">
-                <span className="text-4xl font-serif font-bold text-gradient-brand">
+                <span className="text-4xl font-serif font-bold text-charcoal">
                   {vehicle.price}
                 </span>
                 {vehicle.priceType === "location" && (
@@ -195,7 +195,7 @@ const VehicleDetail = () => {
                       <h3 className="font-serif font-bold text-charcoal group-hover:text-brand transition-colors">
                         {v.name}
                       </h3>
-                      <p className="text-brand font-bold">{v.price}</p>
+                      <p className="text-charcoal font-bold">{v.price}</p>
                     </div>
                   </Link>
                 ))}

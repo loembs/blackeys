@@ -10,39 +10,38 @@ const Hero = () => {
       id="accueil"
       className="relative min-h-[90vh] flex flex-col items-center justify-center overflow-hidden bg-none"
     >
-      {/* Video Background */}
+      {/* Image Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
+        <img
+          src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=2070"
+          alt="Luxury Vehicle"
           className="w-full h-full object-cover"
-        >
-          <source
-            src="https://res.cloudinary.com/dlna2kuo1/video/upload/q_auto,f_auto/v1771266167/WhatsApp_Video_2026-02-16_at_18.18.31_p0pns3.mp4"
-            type="video/mp4"
-          />
-          Your browser does not support the video tag.
-        </video>
+        />
+      </div>
+
+      {/* CTA Buttons - Absolute bottom */}
+      <div className="absolute bottom-12 left-0 right-0 z-30 px-6">
+        <div className="flex flex-col sm:flex-row justify-center gap-6 animate-slide-up" style={{ animationDelay: "0.2s" }}>
+          <Link to="/reservation" className="w-full sm:w-auto">
+            <Button size="xl" className="group bg-brand hover:bg-brand-dark text-white font-bold px-10 shadow-lg hover:shadow-brand transition-all duration-300 w-full sm:w-auto">
+              Réserver Maintenant
+              <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
+          <a href="#vehicules" className="w-full sm:w-auto">
+            <Button size="xl" variant="luxury" className="px-10 font-bold w-full sm:w-auto border-white/20 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white">
+              Voir les véhicules
+            </Button>
+          </a>
+        </div>
       </div>
 
       {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 md:px-12 flex flex-col items-center justify-center h-full pt-20 pb-12">
-        <div className="text-center max-w-4xl">
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4 mb-20 animate-slide-up" style={{ animationDelay: "0.2s" }}>
-            <Link to="/reservation">
-              <Button size="xl" className="group bg-charcoal hover:bg-black text-white font-bold px-10">
-                Réserver Maintenant
-                <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </div>
-        </div>
+      <div className="relative z-20 container mx-auto px-6 md:px-12 flex flex-col items-center justify-end h-full pt-20 pb-16">
+        <div className="text-center max-w-4xl w-full">
+          {/* CTA Buttons moved to bottom */}
 
-        {/* Filter Bar integrated into Hero */}
-        <FilterBar />
+        </div>
       </div>
 
       {/* Scroll Indicator */}
