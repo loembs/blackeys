@@ -29,16 +29,16 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-obsidian border-t border-border">
+    <footer className="bg-white border-t border-border/50">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <span className="text-2xl font-serif font-bold text-foreground">
+              <span className="text-2xl font-serif font-bold text-charcoal">
                 BLACK
               </span>
-              <span className="text-2xl font-serif font-bold text-gradient-brand">
+              <span className="text-2xl font-serif font-bold text-brand">
                 KEYS
               </span>
             </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 rounded-lg bg-charcoal border border-border flex items-center justify-center text-muted-foreground hover:text-brand hover:border-brand transition-all duration-300"
+                  className="w-10 h-10 rounded-xl bg-secondary border border-border/50 flex items-center justify-center text-muted-foreground hover:text-brand hover:border-brand hover:bg-white transition-all duration-300 shadow-sm"
                 >
                   <social.icon className="w-5 h-5" />
                 </a>

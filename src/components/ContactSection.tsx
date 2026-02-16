@@ -71,7 +71,7 @@ const ContactSection = () => {
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className="p-6 rounded-lg bg-charcoal border border-border hover:border-brand/50 transition-all duration-300"
+                  className="p-6 rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-md hover:border-brand/30 transition-all duration-300"
                 >
                   <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center mb-4">
                     <info.icon className="w-6 h-6 text-brand" />
@@ -79,24 +79,24 @@ const ContactSection = () => {
                   <h3 className="text-sm font-medium text-muted-foreground mb-1">
                     {info.title}
                   </h3>
-                  <p className="text-foreground font-medium">{info.value}</p>
+                  <p className="text-charcoal font-semibold">{info.value}</p>
                   <p className="text-sm text-muted-foreground">{info.subvalue}</p>
                 </div>
               ))}
             </div>
 
             {/* Map Placeholder */}
-            <div className="h-64 rounded-lg bg-charcoal border border-border flex items-center justify-center">
+            <div className="h-64 rounded-xl bg-secondary/30 border border-border/50 flex items-center justify-center">
               <div className="text-center">
                 <MapPin className="w-12 h-12 text-brand mx-auto mb-2" />
-                <p className="text-muted-foreground">Dakar, Sénégal - Almadies</p>
+                <p className="text-muted-foreground font-medium">Dakar, Sénégal - Almadies</p>
               </div>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="p-8 rounded-lg bg-charcoal border border-border">
-            <h3 className="text-2xl font-serif font-bold text-foreground mb-6">
+          <div className="p-8 rounded-xl bg-white border border-border/50 shadow-lg">
+            <h3 className="text-2xl font-serif font-bold text-charcoal mb-6">
               Demande de Réservation
             </h3>
             <form onSubmit={handleSubmit} className="space-y-6">

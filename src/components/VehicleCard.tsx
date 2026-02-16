@@ -26,7 +26,7 @@ const VehicleCard = ({
   transmission,
 }: VehicleCardProps) => {
   return (
-    <div className="group bg-gradient-card rounded-lg overflow-hidden border border-border hover:border-brand/50 hover-lift shadow-card">
+    <div className="group bg-white rounded-xl overflow-hidden border border-border/50 hover:border-brand/40 hover-lift shadow-sm hover:shadow-xl transition-all duration-500">
       {/* Image */}
       <div className="relative h-56 overflow-hidden">
         <img
@@ -35,7 +35,7 @@ const VehicleCard = ({
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-obsidian/80 via-transparent to-transparent" />
-        
+
         {/* Category Badge */}
         <div className="absolute top-4 left-4">
           <span className="px-3 py-1 text-xs font-medium bg-brand/20 text-brand rounded-full border border-brand/30">

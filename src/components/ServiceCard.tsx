@@ -9,7 +9,7 @@ interface ServiceCardProps {
 
 const ServiceCard = ({ image, title, description, features }: ServiceCardProps) => {
   return (
-    <div className="group relative overflow-hidden rounded-lg bg-gradient-card border border-border hover:border-brand/50 transition-all duration-500">
+    <div className="group relative overflow-hidden rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-xl hover:border-brand/30 transition-all duration-500">
       {/* Image */}
       <div className="relative h-64 overflow-hidden">
         <img
@@ -17,11 +17,11 @@ const ServiceCard = ({ image, title, description, features }: ServiceCardProps) 
           alt={title}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
       </div>
 
       {/* Content */}
-      <div className="relative p-6 -mt-12">
+      <div className="relative p-8">
         <h3 className="text-2xl font-serif font-bold text-foreground mb-3 group-hover:text-brand transition-colors">
           {title}
         </h3>

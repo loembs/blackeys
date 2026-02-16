@@ -96,7 +96,7 @@ const VehiclesSection = () => {
   const vehicles = activeTab === "location" ? vehiclesData.location : vehiclesData.vente;
 
   return (
-    <section id="vehicules" className="py-24 bg-gradient-dark">
+    <section id="vehicules" className="py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-16">

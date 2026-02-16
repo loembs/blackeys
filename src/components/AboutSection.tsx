@@ -25,7 +25,7 @@ const AboutSection = () => {
   ];
 
   return (
-    <section id="apropos" className="py-24 bg-gradient-dark relative overflow-hidden">
+    <section id="apropos" className="py-24 bg-white relative overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl" />
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-brand/5 rounded-full blur-3xl" />
@@ -37,8 +37,8 @@ const AboutSection = () => {
             <span className="text-brand font-medium tracking-[0.3em] uppercase text-sm">
               À Propos
             </span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-foreground mt-4 mb-6">
-              L'Art du Service <span className="text-gradient-brand">Premium</span>
+            <h2 className="text-4xl md:text-5xl font-serif font-bold text-charcoal mt-4 mb-6">
+              L'Art du Service <span className="text-brand">Premium</span>
             </h2>
             <p className="text-muted-foreground mb-6 leading-relaxed">
               Depuis plus de 10 ans, BLACKKEYS s'impose comme la référence en
@@ -55,17 +55,17 @@ const AboutSection = () => {
 
             {/* Stats */}
             <div className="grid grid-cols-3 gap-6">
-              <div className="text-center p-4 rounded-lg bg-charcoal border border-border">
-                <div className="text-3xl font-serif font-bold text-gradient-brand">50+</div>
-                <div className="text-xs text-muted-foreground mt-1">Véhicules</div>
+              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
+                <div className="text-3xl font-serif font-bold text-brand">50+</div>
+                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Véhicules</div>
               </div>
-              <div className="text-center p-4 rounded-lg bg-charcoal border border-border">
-                <div className="text-3xl font-serif font-bold text-gradient-brand">10+</div>
-                <div className="text-xs text-muted-foreground mt-1">Années</div>
+              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
+                <div className="text-3xl font-serif font-bold text-brand">10+</div>
+                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Années</div>
               </div>
-              <div className="text-center p-4 rounded-lg bg-charcoal border border-border">
-                <div className="text-3xl font-serif font-bold text-gradient-brand">5K+</div>
-                <div className="text-xs text-muted-foreground mt-1">Clients</div>
+              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
+                <div className="text-3xl font-serif font-bold text-brand">5K+</div>
+                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Clients</div>
               </div>
             </div>
           </div>
@@ -75,7 +75,7 @@ const AboutSection = () => {
             {values.map((value, index) => (
               <div
                 key={index}
-                className="p-6 rounded-lg bg-charcoal border border-border hover:border-brand/50 transition-all duration-300 group"
+                className="p-6 rounded-xl bg-white border border-border/50 shadow-sm hover:shadow-md hover:border-brand/30 transition-all duration-300 group"
               >
                 <div className="w-12 h-12 rounded-lg bg-brand/10 flex items-center justify-center mb-4 group-hover:bg-brand/20 transition-colors">
                   <value.icon className="w-6 h-6 text-brand" />

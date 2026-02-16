@@ -91,10 +91,10 @@ const Reservation = () => {
                 <div key={s.num} className="flex items-center">
                   <div
                     className={cn(
-                      "flex items-center gap-2 px-4 py-2 rounded-full transition-all",
+                      "flex items-center gap-2 px-4 py-2 rounded-full transition-all shadow-sm",
                       step >= s.num
-                        ? "bg-brand text-primary-foreground"
-                        : "bg-charcoal text-muted-foreground border border-border"
+                        ? "bg-brand text-white shadow-brand"
+                        : "bg-white text-muted-foreground border border-border/50"
                     )}
                   >
                     <s.icon className="w-4 h-4" />
@@ -118,8 +118,8 @@ const Reservation = () => {
             <div className="lg:col-span-2">
               {/* Step 1: Vehicle & Dates */}
               {step === 1 && (
-                <div className="p-8 rounded-lg bg-charcoal border border-border">
-                  <h2 className="text-2xl font-serif font-bold text-foreground mb-6">
+                <div className="p-8 rounded-xl bg-white border border-border/50 shadow-lg">
+                  <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">
                     Choisissez votre véhicule et vos dates
                   </h2>
 
@@ -255,8 +255,8 @@ const Reservation = () => {
 
               {/* Step 2: Personal Info */}
               {step === 2 && (
-                <div className="p-8 rounded-lg bg-charcoal border border-border">
-                  <h2 className="text-2xl font-serif font-bold text-foreground mb-6">
+                <div className="p-8 rounded-xl bg-white border border-border/50 shadow-lg">
+                  <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">
                     Vos informations
                   </h2>
 
@@ -348,8 +348,8 @@ const Reservation = () => {
 
               {/* Step 3: Payment */}
               {step === 3 && (
-                <form onSubmit={handleSubmit} className="p-8 rounded-lg bg-charcoal border border-border">
-                  <h2 className="text-2xl font-serif font-bold text-foreground mb-6">
+                <form onSubmit={handleSubmit} className="p-8 rounded-xl bg-white border border-border/50 shadow-lg">
+                  <h2 className="text-2xl font-serif font-bold text-charcoal mb-6">
                     Paiement
                   </h2>
 
@@ -405,8 +405,8 @@ const Reservation = () => {
             {/* Summary Sidebar */}
             {step < 4 && vehicle && (
               <div className="lg:col-span-1">
-                <div className="sticky top-28 p-6 rounded-lg bg-charcoal border border-border">
-                  <h3 className="text-lg font-serif font-bold text-foreground mb-4">
+                <div className="sticky top-28 p-6 rounded-xl bg-white border border-border/50 shadow-lg">
+                  <h3 className="text-lg font-serif font-bold text-charcoal mb-4">
                     Récapitulatif
                   </h3>
 

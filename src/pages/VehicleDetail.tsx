@@ -169,9 +169,9 @@ const VehicleDetail = () => {
         </section>
 
         {/* Similar Vehicles */}
-        <section className="py-16 bg-gradient-dark">
+        <section className="py-16 bg-secondary/30">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-serif font-bold text-foreground mb-8">
+            <h2 className="text-3xl font-serif font-bold text-charcoal mb-8">
               Véhicules Similaires
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -182,7 +182,7 @@ const VehicleDetail = () => {
                   <Link
                     key={v.id}
                     to={`/vehicule/${v.id}`}
-                    className="group bg-gradient-card rounded-lg overflow-hidden border border-border hover:border-brand/50 transition-all"
+                    className="group bg-white rounded-xl overflow-hidden border border-border/50 hover:border-brand/30 hover:shadow-lg transition-all"
                   >
                     <div className="relative h-48 overflow-hidden">
                       <img
@@ -192,10 +192,10 @@ const VehicleDetail = () => {
                       />
                     </div>
                     <div className="p-4">
-                      <h3 className="font-serif font-bold text-foreground group-hover:text-brand transition-colors">
+                      <h3 className="font-serif font-bold text-charcoal group-hover:text-brand transition-colors">
                         {v.name}
                       </h3>
-                      <p className="text-brand font-medium">{v.price}</p>
+                      <p className="text-brand font-bold">{v.price}</p>
                     </div>
                   </Link>
                 ))}
