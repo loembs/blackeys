@@ -54,20 +54,6 @@ const AboutSection = () => {
             </p>
 
             {/* Stats */}
-            <div className="grid grid-cols-3 gap-6">
-              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
-                <div className="text-3xl font-serif font-bold text-brand">50+</div>
-                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Véhicules</div>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
-                <div className="text-3xl font-serif font-bold text-brand">10+</div>
-                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Années</div>
-              </div>
-              <div className="text-center p-4 rounded-xl bg-secondary/50 border border-border/50">
-                <div className="text-3xl font-serif font-bold text-brand">5K+</div>
-                <div className="text-xs text-muted-foreground mt-1 uppercase tracking-wider font-semibold">Clients</div>
-              </div>
-            </div>
           </div>
 
           {/* Values Grid */}

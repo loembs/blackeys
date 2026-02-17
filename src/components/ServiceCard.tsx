@@ -1,4 +1,4 @@
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MapPin, Car, Plane } from "lucide-react";
 
 interface ServiceCardProps {
   image: string;
@@ -18,6 +18,28 @@ const ServiceCard = ({ image, title, description, features }: ServiceCardProps) 
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-transparent" />
+
+        {/* Journey Illustration for Airport Shuttle */}
+        {title === "Navette Aéroport AIBD" && (
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+            <div className="relative w-4/5 h-20 flex items-center justify-between px-4">
+              <div className="absolute left-0 right-0 h-0.5 border-t-2 border-dashed border-white/60 top-1/2 -translate-y-1/2" />
+              <div className="z-10 bg-white/10 backdrop-blur-sm p-2 rounded-full border border-white/30 animate-pulse">
+                <MapPin className="w-5 h-5 text-white" />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-white font-bold uppercase tracking-tighter whitespace-nowrap">Dakar</span>
+              </div>
+              <div className="z-10 absolute left-[15%] top-1/2 animate-[move-car_8s_linear_infinite]">
+                <div className="bg-brand p-2 rounded-lg shadow-lg rotate-0">
+                  <Car className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <div className="z-10 bg-brand/20 backdrop-blur-md p-2 rounded-full border border-brand/50">
+                <Plane className="w-5 h-5 text-brand" />
+                <span className="absolute -bottom-6 left-1/2 -translate-x-1/2 text-[10px] text-brand font-bold uppercase tracking-tighter whitespace-nowrap">AIBD</span>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Content */}

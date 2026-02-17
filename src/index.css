@@ -213,3 +213,10 @@
     }
   }
 }
+@keyframes move-car {
+  0% { left: 15%; transform: translateY(-50%) scaleX(1); }
+  45% { left: 75%; transform: translateY(-50%) scaleX(1); }
+  50% { left: 75%; transform: translateY(-50%) scaleX(-1); }
+  95% { left: 15%; transform: translateY(-50%) scaleX(-1); }
+  100% { left: 15%; transform: translateY(-50%) scaleX(1); }
+}
