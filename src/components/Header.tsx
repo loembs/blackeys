@@ -20,12 +20,11 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <span className="text-2xl font-serif font-bold text-foreground">
-              BLACK
-            </span>
-            <span className="text-2xl font-serif font-bold text-gradient-brand">
-              KEYS
-            </span>
+            <img
+              src="https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png"
+              alt="BLACKEYS"
+              className="h-14 w-auto object-contain"
+            />
           </Link>
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-8">

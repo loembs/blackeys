@@ -35,12 +35,11 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <Link to="/" className="flex items-center gap-2 mb-6">
-              <span className="text-2xl font-serif font-bold text-charcoal">
-                BLACK
-              </span>
-              <span className="text-2xl font-serif font-bold text-brand">
-                KEYS
-              </span>
+              <img
+                src="https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png"
+                alt="BLACKEYS"
+                className="h-20 w-auto object-contain"
+              />
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed mb-6">
               Votre partenaire de confiance pour la location et la vente de

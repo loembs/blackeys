@@ -18,7 +18,13 @@ const Hero = () => {
           className="w-full h-full object-cover"
         />
       </div>
-
+      <div className="absolute bottom-32 left-0 right-0 z-30 flex justify-center px-6">
+        <img
+          src="https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png"
+          alt="BLACKEYS"
+          className="h-28 w-auto object-contain animate-float"
+        />
+      </div>
       {/* CTA Buttons - Absolute bottom */}
       <div className="absolute bottom-12 left-0 right-0 z-30 px-6">
         <div className="flex flex-col sm:flex-row justify-center gap-6 animate-slide-up" style={{ animationDelay: "0.2s" }}>
