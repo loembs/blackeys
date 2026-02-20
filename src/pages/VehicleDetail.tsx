@@ -3,23 +3,29 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Fuel, Users, Settings2, Check, Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { vehiclesData } from "@/components/VehiclesSection";
+import { useVehicles } from "@/hooks/useVehicles";
 
 const VehicleDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { location, vente, all, loading, error } = useVehicles();
 
-  // Find the vehicle in both location and vente arrays
-  const vehicle = [...vehiclesData.location, ...vehiclesData.vente].find(
-    (v) => v.id === id
-  );
+  const vehicle = all.find((v) => v.id === id);
 
-  if (!vehicle) {
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <p className="text-muted-foreground">Chargement…</p>
+      </div>
+    );
+  }
+
+  if (error || !vehicle) {
     return (
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-serif font-bold text-foreground mb-4">
-            Véhicule non trouvé
+            {error ? "Erreur de chargement" : "Véhicule non trouvé"}
           </h1>
           <Link to="/#vehicules">
             <Button variant="brand">Retour aux véhicules</Button>
@@ -29,11 +35,13 @@ const VehicleDetail = () => {
     );
   }
 
+  const similarList = vehicle.priceType === "location" ? location : vente;
+  const similarVehicles = similarList.filter((v) => v.id !== vehicle.id).slice(0, 3);
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
       <main className="pt-20">
-        {/* Back Navigation */}
         <div className="container mx-auto px-4 py-6">
           <button
             onClick={() => navigate(-1)}
@@ -44,10 +52,8 @@ const VehicleDetail = () => {
           </button>
         </div>
 
-        {/* Vehicle Hero */}
         <section className="container mx-auto px-4 pb-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Image Gallery */}
             <div className="space-y-4">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <img
@@ -61,7 +67,6 @@ const VehicleDetail = () => {
                   </span>
                 </div>
               </div>
-              {/* Thumbnail placeholders */}
               <div className="grid grid-cols-4 gap-4">
                 {[1, 2, 3, 4].map((i) => (
                   <div
@@ -78,13 +83,11 @@ const VehicleDetail = () => {
               </div>
             </div>
 
-            {/* Vehicle Info */}
             <div>
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">
                 {vehicle.name}
               </h1>
 
-              {/* Price */}
               <div className="mb-6">
                 <span className="text-4xl font-serif font-bold text-charcoal">
                   {vehicle.price}
@@ -94,7 +97,6 @@ const VehicleDetail = () => {
                 )}
               </div>
 
-              {/* Specs */}
               <div className="flex flex-wrap gap-6 mb-8 pb-8 border-b border-border">
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 rounded-lg bg-brand/10 flex items-center justify-center">
@@ -125,32 +127,33 @@ const VehicleDetail = () => {
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="mb-8">
-                <h2 className="text-xl font-serif font-bold text-foreground mb-4">
-                  Description
-                </h2>
-                <p className="text-muted-foreground leading-relaxed">
-                  {vehicle.description}
-                </p>
-              </div>
-
-              {/* Features */}
-              <div className="mb-8">
-                <h2 className="text-xl font-serif font-bold text-foreground mb-4">
-                  Équipements
-                </h2>
-                <div className="grid grid-cols-2 gap-3">
-                  {vehicle.features.map((feature, index) => (
-                    <div key={index} className="flex items-center gap-2">
-                      <Check className="w-4 h-4 text-brand shrink-0" />
-                      <span className="text-sm text-muted-foreground">{feature}</span>
-                    </div>
-                  ))}
+              {vehicle.description && (
+                <div className="mb-8">
+                  <h2 className="text-xl font-serif font-bold text-foreground mb-4">
+                    Description
+                  </h2>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {vehicle.description}
+                  </p>
                 </div>
-              </div>
+              )}
 
-              {/* CTA */}
+              {vehicle.features && vehicle.features.length > 0 && (
+                <div className="mb-8">
+                  <h2 className="text-xl font-serif font-bold text-foreground mb-4">
+                    Équipements
+                  </h2>
+                  <div className="grid grid-cols-2 gap-3">
+                    {vehicle.features.map((feature, index) => (
+                      <div key={index} className="flex items-center gap-2">
+                        <Check className="w-4 h-4 text-brand shrink-0" />
+                        <span className="text-sm text-muted-foreground">{feature}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="flex flex-col sm:flex-row gap-4">
                 <Link to={`/reservation?vehicule=${vehicle.id}`} className="flex-1">
                   <Button variant="hero" size="xl" className="w-full group">
@@ -168,17 +171,14 @@ const VehicleDetail = () => {
           </div>
         </section>
 
-        {/* Similar Vehicles */}
-        <section className="py-16 bg-secondary/30">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-serif font-bold text-charcoal mb-8">
-              Véhicules Similaires
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {(vehicle.priceType === "location" ? vehiclesData.location : vehiclesData.vente)
-                .filter((v) => v.id !== vehicle.id)
-                .slice(0, 3)
-                .map((v) => (
+        {similarVehicles.length > 0 && (
+          <section className="py-16 bg-secondary/30">
+            <div className="container mx-auto px-4">
+              <h2 className="text-3xl font-serif font-bold text-charcoal mb-8">
+                Véhicules Similaires
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {similarVehicles.map((v) => (
                   <Link
                     key={v.id}
                     to={`/vehicule/${v.id}`}
@@ -199,9 +199,10 @@ const VehicleDetail = () => {
                     </div>
                   </Link>
                 ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
       </main>
       <Footer />
     </div>

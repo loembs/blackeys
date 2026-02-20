@@ -18,7 +18,7 @@ const Hero = () => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="absolute bottom-32 left-0 right-0 z-30 flex justify-center px-6">
+      <div className="absolute bottom-32 left-0 right-0 z-30 hidden md:flex justify-center px-6">
         <img
           src="https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png"
           alt="BLACKEYS"
