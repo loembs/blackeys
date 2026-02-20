@@ -1,14 +1,16 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL ?? "";
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY ?? "";
+function getEnv(key: string): string {
+  const v = import.meta.env[key];
+  return (typeof v === "string" ? v : "").trim();
+}
+
+const supabaseUrl = getEnv("VITE_SUPABASE_URL");
+const supabaseAnonKey = getEnv("VITE_SUPABASE_ANON_KEY");
 
 /** True si .env contient VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY */
 export const isSupabaseConfigured =
-  typeof supabaseUrl === "string" &&
-  supabaseUrl.length > 0 &&
-  typeof supabaseAnonKey === "string" &&
-  supabaseAnonKey.length > 0;
+  supabaseUrl.length > 0 && supabaseAnonKey.length > 0;
 
 if (!isSupabaseConfigured) {
   console.warn(

@@ -44,11 +44,12 @@ const VehiclesSection = () => {
         </div>
 
         {error && (
-          <div className="text-center py-12 text-destructive max-w-xl mx-auto space-y-2">
-            <p className="font-medium">Impossible de charger les véhicules.</p>
-            <p className="text-sm opacity-90">{error.message}</p>
-            <p className="text-xs text-muted-foreground mt-4">
-              Vérifiez le fichier .env et que le schéma SQL a bien été exécuté dans le projet Supabase (tables vehicles, vehicle_images).
+          <div className="text-center py-12 max-w-xl mx-auto space-y-3">
+            <p className="font-medium text-destructive">Impossible de charger les véhicules.</p>
+            <p className="text-sm text-muted-foreground">{error.message}</p>
+            <p className="text-xs text-muted-foreground mt-4 pt-4 border-t border-border">
+              Si le .env est correct : redémarrez le serveur (Ctrl+C puis <code className="bg-muted px-1 rounded">npm run dev</code>).
+              Ensuite, exécutez le schéma SQL dans Supabase (tables vehicles, vehicle_images).
             </p>
           </div>
         )}

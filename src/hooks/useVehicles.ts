@@ -3,7 +3,7 @@ import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { Vehicle } from "@/types/vehicle";
 
 const NOT_CONFIGURED_ERROR = new Error(
-  "Supabase non configuré. Créez un fichier .env avec VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY (voir .env.example)."
+  "Supabase non configuré. Vérifiez que le fichier .env existe à la racine du projet avec VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY, puis redémarrez le serveur (arrêtez puis relancez npm run dev)."
 );
 
 interface VehicleRow {
