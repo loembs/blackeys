@@ -91,7 +91,14 @@ export function useVehicles(): UseVehiclesResult {
           .order("sort_order", { ascending: true }),
       ]);
 
-      if (vehiclesRes.error) throw vehiclesRes.error;
+      if (vehiclesRes.error) {
+        const msg = vehiclesRes.error.message || String(vehiclesRes.error);
+        throw new Error(`Supabase (vehicles) : ${msg}`);
+      }
+      if (imagesRes.error) {
+        const msg = imagesRes.error.message || String(imagesRes.error);
+        throw new Error(`Supabase (images) : ${msg}`);
+      }
 
       const rows = (vehiclesRes.data ?? []) as VehicleRow[];
       const imageRows = (imagesRes.data ?? []) as VehicleImageRow[];
