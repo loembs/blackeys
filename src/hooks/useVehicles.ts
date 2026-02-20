@@ -1,6 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import type { Vehicle } from "@/types/vehicle";
+
+const NOT_CONFIGURED_ERROR = new Error(
+  "Supabase non configuré. Créez un fichier .env avec VITE_SUPABASE_URL et VITE_SUPABASE_ANON_KEY (voir .env.example)."
+);
 
 interface VehicleRow {
   id: number;
@@ -73,6 +77,7 @@ export interface UseVehiclesResult {
 export function useVehicles(): UseVehiclesResult {
   const { data, isLoading, error } = useQuery({
     queryKey: ["vehicles"],
+    enabled: isSupabaseConfigured,
     queryFn: async () => {
       const [vehiclesRes, imagesRes] = await Promise.all([
         supabase
@@ -108,6 +113,16 @@ export function useVehicles(): UseVehiclesResult {
       return { location, vente, all: [...location, ...vente] };
     },
   });
+
+  if (!isSupabaseConfigured) {
+    return {
+      location: [],
+      vente: [],
+      all: [],
+      loading: false,
+      error: NOT_CONFIGURED_ERROR,
+    };
+  }
 
   return {
     location: data?.location ?? [],

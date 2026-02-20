@@ -8,7 +8,7 @@ import { ArrowLeft, CalendarIcon, Car, User, Send, CheckCircle, MessageCircle } 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useVehicles } from "@/hooks/useVehicles";
-import { supabase } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 import { format, differenceInDays } from "date-fns";
 import { fr } from "date-fns/locale";
 import { toast } from "sonner";
@@ -107,27 +107,31 @@ const Reservation = () => {
 
     setIsSubmitting(true);
     try {
-      const today = format(new Date(), "yyyy-MM-dd");
-      const { error: insertError } = await supabase.from("reservations").insert({
-        reference: ref,
-        vehicle_id: parseInt(vehicle.id, 10),
-        start_date: isVente ? today : format(startDate!, "yyyy-MM-dd"),
-        end_date: isVente ? today : format(endDate!, "yyyy-MM-dd"),
-        with_driver: isVente ? false : withDriver,
-        first_name: formData.firstName,
-        last_name: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        address: formData.address || null,
-        license_number: formData.licenseNumber || null,
-        total_price: totalPrice,
-        status: "pending",
-      });
+      if (isSupabaseConfigured) {
+        const today = format(new Date(), "yyyy-MM-dd");
+        const { error: insertError } = await supabase.from("reservations").insert({
+          reference: ref,
+          vehicle_id: parseInt(vehicle.id, 10),
+          start_date: isVente ? today : format(startDate!, "yyyy-MM-dd"),
+          end_date: isVente ? today : format(endDate!, "yyyy-MM-dd"),
+          with_driver: isVente ? false : withDriver,
+          first_name: formData.firstName,
+          last_name: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          address: formData.address || null,
+          license_number: formData.licenseNumber || null,
+          total_price: totalPrice,
+          status: "pending",
+        });
 
-      if (insertError) {
-        toast.error("Erreur lors de l'enregistrement. Vous pouvez quand même continuer sur WhatsApp.");
+        if (insertError) {
+          toast.error("Erreur lors de l'enregistrement. Vous pouvez quand même continuer sur WhatsApp.");
+        } else {
+          toast.success("Réservation enregistrée. Elle a été transmise sur WhatsApp.");
+        }
       } else {
-        toast.success("Réservation enregistrée. Elle a été transmise sur WhatsApp.");
+        toast.success("Requête transmise. Ouvrez WhatsApp pour finaliser.");
       }
     } catch {
       toast.error("Erreur de connexion. Vous pouvez quand même continuer sur WhatsApp.");
