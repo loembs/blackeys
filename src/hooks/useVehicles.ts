@@ -50,9 +50,11 @@ function mapRowToVehicle(
       : formatPrice(row.price_vente);
   const features = Array.isArray(row.features) ? row.features : [];
 
+  const allImages = images && images.length > 0 ? images : [image];
   return {
     id: String(row.id),
     image,
+    images: allImages,
     name: row.name,
     category: row.category,
     price,

@@ -106,10 +106,26 @@ CREATE TRIGGER reservations_updated_at
 -- vehicle_id = 1 correspond au Range Rover Velar inséré ci-dessus
 
 -- ------------------------------------------------------------
--- Véhicules supplémentaires (tarifs = location / jour ; achat = prix à venir)
+-- Véhicules (tarifs = location / jour)
 -- ------------------------------------------------------------
+INSERT INTO public.vehicles (name, category, color, year, engine, doors, seats, price_per_day, price_type, description, fuel, transmission, features, is_available) VALUES
+('Range Rover Velar', 'SUV Premium', 'Marron', 2022, '4 cylindre', 4, 5, 160000, 'location', 'Range Rover Velar marron, intérieur cuir noir, full options, toit ouvrant.', 'Diesel', 'Automatique', '["Full options", "Toit ouvrant", "Intérieur cuir noir"]'::jsonb, true),
+('Kia K5', 'Berline', NULL, 2022, '4 cylindre', 4, 5, 40000, 'location', 'Kia K5 2022, boîte automatique, intérieur cuir beige, full options.', 'Essence', 'Automatique', '["Full options", "Intérieur cuir beige"]'::jsonb, true),
+('Renault SM3', 'Berline', 'Grise', 2017, '4 cylindre', 4, 5, 25000, 'location', 'Renault SM3 2017 grise, intérieur cuir noir.', 'Essence', NULL, '["Intérieur cuir noir"]'::jsonb, true),
+('Peugeot 208', 'Compact', 'Blanche', 2018, '4 cylindre', 4, 5, 25000, 'location', 'Peugeot 208 2018 blanche, intérieur tissu.', 'Diesel', NULL, '["Intérieur tissu"]'::jsonb, true),
+('Ford F150', 'Pick-up', 'Noire', 2016, '8 cylindre', 4, 5, 80000, 'location', 'Ford F150 2016 noire, intérieur cuir noir, transmission automatique, 4x4.', 'Essence', 'Automatique', '["4x4", "Intérieur cuir noir"]'::jsonb, true),
+('Mitsubishi Outlander', 'SUV', 'Blanche', 2017, '4 cylindre', 4, 7, 40000, 'location', 'Mitsubishi Outlander 2017 blanche, boîte automatique, 4x4, 7 places, intérieur tissu.', 'Essence', 'Automatique', '["4x4", "7 places", "Intérieur tissu"]'::jsonb, true),
+('Hyundai Kona', 'SUV', 'Blanche', 2020, '4 cylindre', 4, 5, 30000, 'location', 'Hyundai Kona 2020 blanche, boîte automatique, intérieur tissu.', 'Essence', 'Automatique', '["Intérieur tissu"]'::jsonb, true),
+('Hyundai Sonata', 'Berline', 'Grise', 2017, '4 cylindre', 4, 5, 30000, 'location', 'Hyundai Sonata 2017 grise, intérieur cuir noir, boîte automatique.', 'Essence', 'Automatique', '["Intérieur cuir noir"]'::jsonb, true),
+('Peugeot 2008', 'SUV', 'Grise', 2017, '4 cylindre', 4, 5, 30000, 'location', 'Peugeot 2008 2017 grise, intérieur semi-cuir noir, transmission manuelle, diesel.', 'Diesel', 'Manuelle', '["Intérieur semi-cuir noir"]'::jsonb, true),
+('Chevrolet Trax', 'SUV', 'Grise', 2017, '4 cylindre', 4, 5, 30000, 'location', 'Chevrolet Trax 2017 grise, intérieur cuir noir, transmission automatique.', 'Essence', 'Automatique', '["Intérieur cuir noir"]'::jsonb, true),
+('Hyundai Tucson', 'SUV', 'Blanche', 2017, '4 cylindre', 4, 5, 35000, 'location', 'Hyundai Tucson 2017 blanche, intérieur tissu blanc, transmission automatique.', 'Essence', 'Automatique', '["Intérieur tissu blanc"]'::jsonb, true),
+('Range Rover Sport', 'SUV Premium', 'Blanche', 2020, '4 cylindre', 4, 5, 170000, 'location', 'Range Rover Sport 2020 blanche, intérieur cuir blanc, transmission automatique.', 'Essence', 'Automatique', '["Intérieur cuir blanc"]'::jsonb, true),
+('Mercedes S600', 'Berline Luxe', 'Noire', 2024, '8 cylindre', 4, 5, 400000, 'location', 'Mercedes S600 2024 noire, intérieur cuir beige, transmission automatique.', 'Essence', 'Automatique', '["Intérieur cuir beige"]'::jsonb, true);
+
+-- Les IDs peuvent varier si la table existait déjà ; les images ci-dessous ciblent les véhicules par nom.
 INSERT INTO public.vehicle_images (vehicle_id, url, sort_order)
-SELECT id, url, sort_order FROM (
+SELECT v.id, imgs.url, imgs.sort_order FROM (
   VALUES
   ('https://res.cloudinary.com/dprbhsvxl/image/upload/v1771585030/Range_Rover_brown_1_loa1c9.jpg', 0),
   ('https://res.cloudinary.com/dprbhsvxl/image/upload/v1771585030/Range_Rover_brown_2_whvszx.jpg', 1),

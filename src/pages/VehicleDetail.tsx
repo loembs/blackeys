@@ -1,16 +1,20 @@
+import { useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Fuel, Users, Settings2, Check, Calendar } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useVehicles } from "@/hooks/useVehicles";
+import { cn } from "@/lib/utils";
 
 const VehicleDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { location, vente, all, loading, error } = useVehicles();
 
   const vehicle = all.find((v) => v.id === id);
+  const images = vehicle?.images ?? (vehicle ? [vehicle.image] : []);
 
   if (loading) {
     return (
@@ -57,7 +61,7 @@ const VehicleDetail = () => {
             <div className="space-y-4">
               <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                 <img
-                  src={vehicle.image}
+                  src={images[selectedImageIndex] ?? vehicle.image}
                   alt={vehicle.name}
                   className="w-full h-full object-cover"
                 />
@@ -67,20 +71,29 @@ const VehicleDetail = () => {
                   </span>
                 </div>
               </div>
-              <div className="grid grid-cols-4 gap-4">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-brand transition-colors cursor-pointer"
-                  >
-                    <img
-                      src={vehicle.image}
-                      alt={`${vehicle.name} vue ${i}`}
-                      className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity"
-                    />
-                  </div>
-                ))}
-              </div>
+              {images.length > 1 && (
+                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 sm:gap-4">
+                  {images.map((url, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setSelectedImageIndex(i)}
+                      className={cn(
+                        "aspect-square rounded-lg overflow-hidden border-2 transition-all cursor-pointer",
+                        selectedImageIndex === i
+                          ? "border-brand ring-2 ring-brand/30"
+                          : "border-transparent hover:border-brand/50"
+                      )}
+                    >
+                      <img
+                        src={url}
+                        alt={`${vehicle.name} vue ${i + 1}`}
+                        className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-opacity"
+                      />
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div>

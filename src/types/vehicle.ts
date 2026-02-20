@@ -2,6 +2,8 @@
 export interface Vehicle {
   id: string;
   image: string;
+  /** Toutes les images du véhicule (principale + secondaires), dans l'ordre */
+  images?: string[];
   name: string;
   category: string;
   price: string;
