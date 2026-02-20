@@ -9,12 +9,12 @@ function getEnv(key: string): string {
 const fromEnvUrl = getEnv("VITE_SUPABASE_URL");
 const fromEnvKey = getEnv("VITE_SUPABASE_ANON_KEY");
 
-// Fallback en développement uniquement : si .env n'est pas chargé (ex. Lovable, build distant), on utilise ces valeurs
-const DEV_FALLBACK_URL = "https://dbwdunlchnblumwnmmev.supabase.co";
-const DEV_FALLBACK_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRid2R1bmxjaG5ibHVtd25tbWV2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE1ODc2MjgsImV4cCI6MjA4NzE2MzYyOH0.c4xZWKFsvanxRcq_b6OdI9zYqw5GWpjXe_YkcLtImjU";
+// Fallback si .env n'est pas chargé (ex. build distant, preview, Lovable) — remplace par ton projet Supabase si différent
+const FALLBACK_URL = "https://dbwdunlchnblumwnmmev.supabase.co";
+const FALLBACK_ANON_KEY = "";
 
-const supabaseUrl = fromEnvUrl || (import.meta.env.DEV ? DEV_FALLBACK_URL : "");
-const supabaseAnonKey = fromEnvKey || (import.meta.env.DEV ? DEV_FALLBACK_ANON_KEY : "");
+const supabaseUrl = fromEnvUrl || FALLBACK_URL;
+const supabaseAnonKey = fromEnvKey || FALLBACK_ANON_KEY;
 
 /** True si on a une URL et une clé Supabase (env ou fallback dev) */
 export const isSupabaseConfigured =
