@@ -7,7 +7,7 @@ import carDecoration from "@/assets/car-decoration.jpg";
 const ServicesSection = () => {
   const services = [
     {
-      image: chauffeurService,
+      image: "https://res.cloudinary.com/dprbhsvxl/image/upload/v1771616728/Chauffeurprive_gysngl.png",
       title: "Location avec Chauffeur",
       description:
         "Profitez d'un service de chauffeur privé professionnel pour tous vos déplacements en toute élégance.",
@@ -18,7 +18,7 @@ const ServicesSection = () => {
       ],
     },
     {
-      image: airportShuttle,
+      image: "https://res.cloudinary.com/dprbhsvxl/image/upload/v1771616723/AIBD_tizrko.png",
       title: "Navette Aéroport AIBD",
       description:
         "Service de transfert premium depuis et vers l'Aéroport International Blaise Diagne.",
@@ -29,7 +29,7 @@ const ServicesSection = () => {
       ],
     },
     {
-      image: excursionSenegal,
+      image: "https://res.cloudinary.com/dprbhsvxl/image/upload/v1771616786/tourisme_gze5rr.png",
       title: "Excursions au Sénégal",
       description:
         "Explorez les merveilles du Sénégal à bord de nos véhicules tout-terrain de luxe.",
@@ -40,7 +40,7 @@ const ServicesSection = () => {
       ],
     },
     {
-      image: carDecoration,
+      image: "https://res.cloudinary.com/dprbhsvxl/image/upload/v1771616771/mariagecar_uaewek.jpg",
       title: "Décoration Événementielle",
       description:
         "Sublimez vos événements avec nos services de décoration de véhicules de prestige.",

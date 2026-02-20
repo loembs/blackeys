@@ -13,7 +13,7 @@ const Hero = () => {
       {/* Image Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&q=80&w=2070"
+          src="https://res.cloudinary.com/dprbhsvxl/image/upload/v1771617399/Location_de_voiture_et_tourisme_s%C3%A9n%C3%A9galais_ghe5kg.png"
           alt="Luxury Vehicle"
           className="w-full h-full object-cover"
         />
@@ -42,13 +42,7 @@ const Hero = () => {
         </div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 md:px-12 flex flex-col items-center justify-end h-full pt-20 pb-16">
-        <div className="text-center max-w-4xl w-full">
-          {/* CTA Buttons moved to bottom */}
-
-        </div>
-      </div>
+      
 
       {/* Scroll Indicator */}
       {/* <div className="absolute bottom-12 left-1/2 -translate-x-1/2 animate-bounce z-10 hidden md:block">
