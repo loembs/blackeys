@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useVehicles } from "@/hooks/useVehicles";
 import { cn } from "@/lib/utils";
+import { CONTACT } from "@/lib/constants";
 
 const VehicleDetail = () => {
   const { id } = useParams();
@@ -174,7 +175,7 @@ const VehicleDetail = () => {
                     {vehicle.priceType === "location" ? "Réserver" : "Demander un devis"}
                   </Button>
                 </Link>
-                <a href="tel:+221770000000" className="flex-1">
+                <a href={`tel:${CONTACT.phoneTel}`} className="flex-1">
                   <Button variant="brandOutline" size="xl" className="w-full">
                     Appeler maintenant
                   </Button>

@@ -13,8 +13,7 @@ import { format, differenceInDays } from "date-fns";
 import { fr } from "date-fns/locale";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-
-const WHATSAPP_NUMBER = "221782271165";
+import { CONTACT } from "@/lib/constants";
 const BLACKKEYS_LOGO =
   "https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png";
 
@@ -96,7 +95,7 @@ const Reservation = () => {
 
   const openWhatsApp = (refOverride?: string) => {
     const message = buildWhatsAppMessage(refOverride);
-    const url = `https://wa.me/${WHATSAPP_NUMBER}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
+    const url = `https://wa.me/${CONTACT.whatsapp}${message ? `?text=${encodeURIComponent(message)}` : ""}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
@@ -410,7 +409,7 @@ const Reservation = () => {
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         className="bg-background border-border focus:border-brand"
-                        placeholder="+221 77 XXX XX XX"
+                        placeholder="+221 78 227 11 65"
                         required
                       />
                     </div>
@@ -462,7 +461,7 @@ const Reservation = () => {
 
                   <div className="p-6 rounded-lg bg-background border border-border mb-6">
                     <p className="text-muted-foreground text-center">
-                      Votre requête sera transmise à notre équipe sur WhatsApp. <strong>Aucun paiement à effectuer sur le site</strong> — nous vous recontacterons au <span className="text-charcoal font-semibold">+221 78 227 11 65</span> pour la suite.
+                      Votre requête sera transmise à notre équipe sur WhatsApp. <strong>Aucun paiement à effectuer sur le site</strong> — nous vous recontacterons au <span className="text-charcoal font-semibold">{CONTACT.phoneDisplay}</span> pour la suite.
                     </p>
                   </div>
 
@@ -514,7 +513,7 @@ const Reservation = () => {
                     </p>
                   </div>
                   <p className="text-sm text-muted-foreground mb-4">
-                    Votre requête a été transmise sur WhatsApp au +221 78 227 11 65. Vous pouvez rouvrir le message si besoin.
+                    Votre requête a été transmise sur WhatsApp au {CONTACT.phoneDisplay}. Vous pouvez rouvrir le message si besoin.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
                     <Button

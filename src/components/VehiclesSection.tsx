@@ -2,12 +2,25 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import VehicleCard from "./VehicleCard";
 import { useVehicles } from "@/hooks/useVehicles";
+import { filterAndSortVehicles } from "@/lib/constants";
 
-const VehiclesSection = () => {
+export interface VehiclesSectionFilters {
+  filterBrand?: string;
+  filterCategory?: string;
+  sortOrder?: "asc" | "desc" | "";
+}
+
+const VehiclesSection = ({
+  filterBrand = "",
+  filterCategory = "",
+  sortOrder = "",
+}: VehiclesSectionFilters) => {
   const [activeTab, setActiveTab] = useState<"location" | "vente">("location");
   const { location, vente, loading, error } = useVehicles();
 
-  const vehicles = activeTab === "location" ? location : vente;
+  const filteredLocation = filterAndSortVehicles(location, filterBrand, filterCategory, sortOrder);
+  const filteredVente = filterAndSortVehicles(vente, filterBrand, filterCategory, sortOrder);
+  const vehicles = activeTab === "location" ? filteredLocation : filteredVente;
 
   return (
     <section id="vehicules" className="py-24 bg-white">
@@ -62,7 +75,7 @@ const VehiclesSection = () => {
 
         {!loading && !error && vehicles.length === 0 && (
           <div className="text-center py-12 text-muted-foreground">
-            Aucun véhicule disponible pour le moment.
+            {(filterBrand || filterCategory) ? "Aucun véhicule ne correspond à ces critères." : "Aucun véhicule disponible pour le moment."}
           </div>
         )}
 

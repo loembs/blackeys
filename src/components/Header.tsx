@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, Phone } from "lucide-react";
+import { CONTACT } from "@/lib/constants";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -42,11 +43,11 @@ const Header = () => {
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="tel:+221770000000"
+              href={`tel:${CONTACT.phoneTel}`}
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-brand transition-colors"
             >
               <Phone className="w-4 h-4" />
-              <span>+221 77 000 00 00</span>
+              <span>{CONTACT.phoneDisplay}</span>
             </a>
             <Link to="/reservation">
               <Button variant="brand" size="sm">

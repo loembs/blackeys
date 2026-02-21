@@ -4,6 +4,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { CONTACT } from "@/lib/constants";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -20,7 +21,7 @@ const ContactSection = () => {
     setFormData({ name: "", email: "", phone: "", service: "", message: "" });
   };
 
-  const contactInfo = [
+  const contactInfo: { icon: typeof MapPin; title: string; value: string; subvalue?: string | null; href?: string }[] = [
     {
       icon: MapPin,
       title: "Adresse",
@@ -30,14 +31,14 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: "Téléphone",
-      value: "+221 77 000 00 00",
-      subvalue: "+221 33 800 00 00",
+      value: CONTACT.phoneDisplay,
+      href: `tel:${CONTACT.phoneTel}`,
     },
     {
       icon: Mail,
       title: "Email",
-      value: "contact@blackkeys.sn",
-      subvalue: "reservation@blackkeys.sn",
+      value: CONTACT.email,
+      href: `mailto:${CONTACT.email}`,
     },
     {
       icon: Clock,
@@ -79,8 +80,14 @@ const ContactSection = () => {
                   <h3 className="text-sm font-medium text-muted-foreground mb-1">
                     {info.title}
                   </h3>
-                  <p className="text-charcoal font-semibold">{info.value}</p>
-                  <p className="text-sm text-muted-foreground">{info.subvalue}</p>
+                  {info.href ? (
+                    <a href={info.href} className="text-charcoal font-semibold hover:text-brand block">
+                      {info.value}
+                    </a>
+                  ) : (
+                    <p className="text-charcoal font-semibold">{info.value}</p>
+                  )}
+                  {info.subvalue && <p className="text-sm text-muted-foreground">{info.subvalue}</p>}
                 </div>
               ))}
             </div>

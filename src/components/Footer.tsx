@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { CONTACT } from "@/lib/constants";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -110,11 +111,11 @@ const Footer = () => {
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-brand shrink-0" />
-                <span className="text-muted-foreground text-sm">+221 77 000 00 00</span>
+                <a href={`tel:${CONTACT.phoneTel}`} className="text-muted-foreground text-sm hover:text-brand">{CONTACT.phoneDisplay}</a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-brand shrink-0" />
-                <span className="text-muted-foreground text-sm">contact@blackkeys.sn</span>
+                <a href={`mailto:${CONTACT.email}`} className="text-muted-foreground text-sm hover:text-brand">{CONTACT.email}</a>
               </li>
             </ul>
           </div>
