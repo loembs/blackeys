@@ -13,7 +13,7 @@ import Suspended from "./pages/Suspended";
 const queryClient = new QueryClient();
 
 // Mettre à false pour réactiver le site après paiement
-const SITE_SUSPENDED = true;
+const SITE_SUSPENDED = false;
 
 function ScrollToTop() {
   const { pathname } = useLocation();
