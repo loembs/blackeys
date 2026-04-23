@@ -13,7 +13,7 @@ const Hero = () => {
       {/* Image Background */}
       <div className="absolute inset-0 z-0 overflow-hidden">
         <img
-          src="https://res.cloudinary.com/dprbhsvxl/image/upload/v1771617399/Location_de_voiture_et_tourisme_s%C3%A9n%C3%A9galais_ghe5kg.png"
+          src="https://res.cloudinary.com/dlna2kuo1/image/upload/v1776961659/ChatGPT_Image_23_avr._2026_16_08_51_yqlhvg.png"
           alt="Luxury Vehicle"
           className="w-full h-full object-cover"
         />
