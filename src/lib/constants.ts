@@ -1,10 +1,10 @@
 /** Coordonnées BlackKeys — utilisées partout sur le site */
 export const CONTACT = {
   email: "blackey221.sn@gmail.com",
-  phone: "782271165",
-  phoneDisplay: "+221 78 227 11 65",
-  phoneTel: "+221782271165",
-  whatsapp: "221782271165",
+  phone: "768631439",
+  phoneDisplay: "+221 76 86 31 439",
+  phoneTel: "+221768631439",
+  whatsapp: "221768631439",
 } as const;
 
 /** Extrait la marque du nom du véhicule pour les filtres */
