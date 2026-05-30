@@ -4,7 +4,21 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { ArrowLeft, CalendarIcon, Car, User, Send, CheckCircle, MessageCircle } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+} from "@/components/ui/pagination";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, CalendarIcon, Car, User, Send, CheckCircle, MessageCircle, Filter } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useVehicles } from "@/hooks/useVehicles";
@@ -13,7 +27,7 @@ import { format, differenceInDays } from "date-fns";
 import { fr } from "date-fns/locale";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import { CONTACT } from "@/lib/constants";
+import { CONTACT, getBrandFromName } from "@/lib/constants";
 const BLACKKEYS_LOGO =
   "https://res.cloudinary.com/dlna2kuo1/image/upload/v1771340863/IMG_2675-removebg-preview_pg0lgu.png";
 
@@ -36,8 +50,44 @@ const Reservation = () => {
     licenseNumber: "",
   });
 
+  // Filtres et pagination
+  const [filterBrand, setFilterBrand] = useState<string>("");
+  const [filterCategory, setFilterCategory] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+
   const { all: allVehicles, loading: vehiclesLoading } = useVehicles();
   const vehicle = allVehicles.find((v) => v.id === selectedVehicle);
+
+  // Extraire les marques et catégories uniques
+  const brands = Array.from(new Set(allVehicles.map((v) => getBrandFromName(v.name)))).sort();
+  const categories = Array.from(new Set(allVehicles.map((v) => v.category))).sort();
+
+  // Filtrer les véhicules
+  const filteredVehicles = allVehicles.filter((v) => {
+    const matchBrand = !filterBrand || getBrandFromName(v.name) === filterBrand;
+    const matchCategory = !filterCategory || v.category === filterCategory;
+    return matchBrand && matchCategory;
+  });
+
+  // Pagination
+  const totalPages = Math.ceil(filteredVehicles.length / itemsPerPage);
+  const paginatedVehicles = filteredVehicles.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Réinitialiser la pagination quand les filtres changent
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filterBrand, filterCategory]);
+
+  // Réinitialiser les filtres si le véhicule sélectionné n'est plus visible
+  useEffect(() => {
+    if (selectedVehicle && !filteredVehicles.find((v) => v.id === selectedVehicle)) {
+      setSelectedVehicle("");
+    }
+  }, [filteredVehicles, selectedVehicle]);
   const isVente = vehicle?.priceType === "vente";
 
   const numberOfDays = startDate && endDate ? differenceInDays(endDate, startDate) + 1 : 0;
@@ -223,39 +273,170 @@ const Reservation = () => {
                     <label className="text-sm font-medium text-muted-foreground mb-3 block">
                       Véhicule
                     </label>
+
+                    {/* Filtres */}
+                    {!vehiclesLoading && allVehicles.length > 0 && (
+                      <div className="flex flex-wrap gap-3 mb-6 p-4 rounded-lg bg-muted/50">
+                        <div className="flex items-center gap-2">
+                          <Filter className="w-4 h-4 text-muted-foreground" />
+                          <span className="text-sm font-medium text-muted-foreground">Filtres:</span>
+                        </div>
+                        <Select value={filterBrand || "all"} onValueChange={(v) => setFilterBrand(v === "all" ? "" : v)}>
+                          <SelectTrigger className="w-[180px] bg-white">
+                            <SelectValue placeholder="Marque" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">Toutes les marques</SelectItem>
+                            {brands.map((brand) => (
+                              <SelectItem key={brand} value={brand}>
+                                {brand}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        <Select value={filterCategory || "all"} onValueChange={(v) => setFilterCategory(v === "all" ? "" : v)}>
+                          <SelectTrigger className="w-[180px] bg-white">
+                            <SelectValue placeholder="Catégorie" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">Toutes les catégories</SelectItem>
+                            {categories.map((cat) => (
+                              <SelectItem key={cat} value={cat}>
+                                {cat}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {(filterBrand || filterCategory) && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => {
+                              setFilterBrand("");
+                              setFilterCategory("");
+                            }}
+                          >
+                            Réinitialiser
+                          </Button>
+                        )}
+                        <div className="ml-auto text-sm text-muted-foreground">
+                          {filteredVehicles.length} véhicule{filteredVehicles.length !== 1 ? "s" : ""}
+                        </div>
+                      </div>
+                    )}
+
                     {vehiclesLoading ? (
                       <p className="text-muted-foreground py-4">Chargement des véhicules…</p>
+                    ) : paginatedVehicles.length === 0 ? (
+                      <p className="text-muted-foreground py-4 text-center">
+                        Aucun véhicule ne correspond aux critères de filtrage.
+                      </p>
                     ) : (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {allVehicles.map((v) => (
-                        <button
-                          key={v.id}
-                          onClick={() => setSelectedVehicle(v.id)}
-                          className={cn(
-                            "p-4 rounded-lg border text-left transition-all",
-                            selectedVehicle === v.id
-                              ? "border-brand bg-brand/10"
-                              : "border-border hover:border-brand/50"
-                          )}
-                        >
-                          <div className="flex gap-4">
-                            <img
-                              src={v.image}
-                              alt={v.name}
-                              className="w-20 h-20 object-cover rounded-lg"
-                            />
-                            <div>
-                              <h3 className="font-medium text-foreground">{v.name}</h3>
-                              <p className="text-sm text-muted-foreground">{v.category}</p>
-                              <p className="text-charcoal font-semibold mt-1">
-                                {v.price}
-                                {v.priceType === "location" ? "/jour" : ""}
-                              </p>
-                            </div>
+                      <>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          {paginatedVehicles.map((v) => (
+                            <button
+                              key={v.id}
+                              onClick={() => setSelectedVehicle(v.id)}
+                              className={cn(
+                                "p-4 rounded-lg border text-left transition-all",
+                                selectedVehicle === v.id
+                                  ? "border-brand bg-brand/10"
+                                  : "border-border hover:border-brand/50"
+                              )}
+                            >
+                              <div className="flex gap-4">
+                                <img
+                                  src={v.image}
+                                  alt={v.name}
+                                  className="w-20 h-20 object-cover rounded-lg"
+                                />
+                                <div>
+                                  <h3 className="font-medium text-foreground">{v.name}</h3>
+                                  <p className="text-sm text-muted-foreground">{v.category}</p>
+                                  <p className="text-charcoal font-semibold mt-1">
+                                    {v.price}
+                                    {v.priceType === "location" ? "/jour" : ""}
+                                  </p>
+                                </div>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+
+                        {/* Pagination */}
+                        {totalPages > 1 && (
+                          <div className="flex justify-center mt-6">
+                            <Pagination>
+                              <PaginationContent>
+                                <PaginationItem>
+                                  <button
+                                    onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                                    disabled={currentPage === 1}
+                                    className={cn(
+                                      "flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                                      "hover:bg-accent hover:text-accent-foreground",
+                                      currentPage === 1 && "opacity-50 pointer-events-none"
+                                    )}
+                                  >
+                                    <ChevronLeft className="h-4 w-4" />
+                                    <span>Précédent</span>
+                                  </button>
+                                </PaginationItem>
+                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                                  const showFirst = page === 1;
+                                  const showLast = page === totalPages;
+                                  const showAroundStart = page >= currentPage - 1 && page <= currentPage + 1;
+                                  const showAroundEnd = page >= totalPages - 1 && page <= totalPages + 1;
+
+                                  if (showFirst || showLast || showAroundStart || showAroundEnd) {
+                                    return (
+                                      <PaginationItem key={page}>
+                                        <button
+                                          onClick={() => setCurrentPage(page)}
+                                          aria-current={currentPage === page ? "page" : undefined}
+                                          className={cn(
+                                            "flex items-center justify-center w-10 h-10 rounded-md text-sm font-medium transition-colors",
+                                            currentPage === page
+                                              ? "bg-brand text-white hover:bg-brand/90"
+                                              : "hover:bg-accent hover:text-accent-foreground"
+                                          )}
+                                        >
+                                          {page}
+                                        </button>
+                                      </PaginationItem>
+                                    );
+                                  } else if (
+                                    (page === 2 && currentPage > 4) ||
+                                    (page === totalPages - 1 && currentPage < totalPages - 3)
+                                  ) {
+                                    return (
+                                      <PaginationItem key={page}>
+                                        <PaginationEllipsis />
+                                      </PaginationItem>
+                                    );
+                                  }
+                                  return null;
+                                })}
+                                <PaginationItem>
+                                  <button
+                                    onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+                                    disabled={currentPage === totalPages}
+                                    className={cn(
+                                      "flex items-center gap-1 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                                      "hover:bg-accent hover:text-accent-foreground",
+                                      currentPage === totalPages && "opacity-50 pointer-events-none"
+                                    )}
+                                  >
+                                    <span>Suivant</span>
+                                    <ChevronRight className="h-4 w-4" />
+                                  </button>
+                                </PaginationItem>
+                              </PaginationContent>
+                            </Pagination>
                           </div>
-                        </button>
-                      ))}
-                    </div>
+                        )}
+                      </>
                     )}
                   </div>
 
