@@ -2,9 +2,11 @@
 export interface Vehicle {
   id: string;
   image: string;
-  /** Toutes les images du véhicule (principale + secondaires), dans l'ordre */
+  /** Toutes les images du véhicule (principale + secondaires), dans l’ordre */
   images?: string[];
   name: string;
+  /** Slug URL-friendly généré à partir du nom pour les URLs */
+  slug: string;
   category: string;
   price: string;
   /** Prix par jour (location) ou prix de vente, pour les calculs */

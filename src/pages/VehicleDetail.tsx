@@ -9,12 +9,12 @@ import { cn } from "@/lib/utils";
 import { CONTACT } from "@/lib/constants";
 
 const VehicleDetail = () => {
-  const { id } = useParams();
+  const { slug } = useParams();
   const navigate = useNavigate();
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const { location, vente, all, loading, error } = useVehicles();
 
-  const vehicle = all.find((v) => v.id === id);
+  const vehicle = all.find((v) => v.slug === slug);
   const images = vehicle?.images ?? (vehicle ? [vehicle.image] : []);
 
   if (loading) {
@@ -169,7 +169,7 @@ const VehicleDetail = () => {
               )}
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link to={`/reservation?vehicule=${vehicle.id}`} className="flex-1">
+                <Link to={`/reservation?vehicule=${vehicle.slug}`} className="flex-1">
                   <Button variant="hero" size="xl" className="w-full group">
                     <Calendar className="w-5 h-5" />
                     {vehicle.priceType === "location" ? "Réserver" : "Demander un devis"}
@@ -195,7 +195,7 @@ const VehicleDetail = () => {
                 {similarVehicles.map((v) => (
                   <Link
                     key={v.id}
-                    to={`/vehicule/${v.id}`}
+                    to={`/vehicule/${v.slug}`}
                     className="group bg-white rounded-xl overflow-hidden border border-border/50 hover:border-brand/30 hover:shadow-lg transition-all"
                   >
                     <div className="relative h-48 overflow-hidden">

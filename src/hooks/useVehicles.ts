@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { slugify } from "@/lib/utils";
 import type { Vehicle } from "@/types/vehicle";
 
 const NOT_CONFIGURED_ERROR = new Error(
@@ -56,6 +57,7 @@ function mapRowToVehicle(
     image,
     images: allImages,
     name: row.name,
+    slug: slugify(row.name),
     category: row.category,
     price,
     priceNumeric: row.price_type === "location" ? (row.price_per_day ?? undefined) : (row.price_vente ?? undefined),

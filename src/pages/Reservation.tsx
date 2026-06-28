@@ -57,7 +57,7 @@ const Reservation = () => {
   const itemsPerPage = 5;
 
   const { all: allVehicles, loading: vehiclesLoading } = useVehicles();
-  const vehicle = allVehicles.find((v) => v.id === selectedVehicle);
+  const vehicle = allVehicles.find((v) => v.slug === selectedVehicle);
 
   // Extraire les marques et catégories uniques
   const brands = Array.from(new Set(allVehicles.map((v) => getBrandFromName(v.name)))).sort();
@@ -84,7 +84,7 @@ const Reservation = () => {
 
   // Réinitialiser les filtres si le véhicule sélectionné n'est plus visible
   useEffect(() => {
-    if (selectedVehicle && !filteredVehicles.find((v) => v.id === selectedVehicle)) {
+    if (selectedVehicle && !filteredVehicles.find((v) => v.slug === selectedVehicle)) {
       setSelectedVehicle("");
     }
   }, [filteredVehicles, selectedVehicle]);
@@ -337,10 +337,10 @@ const Reservation = () => {
                           {paginatedVehicles.map((v) => (
                             <button
                               key={v.id}
-                              onClick={() => setSelectedVehicle(v.id)}
+                              onClick={() => setSelectedVehicle(v.slug)}
                               className={cn(
                                 "p-4 rounded-lg border text-left transition-all",
-                                selectedVehicle === v.id
+                                selectedVehicle === v.slug
                                   ? "border-brand bg-brand/10"
                                   : "border-border hover:border-brand/50"
                               )}
